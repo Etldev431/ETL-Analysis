@@ -1,0 +1,11 @@
+Remove duplicates
+select DISTINCT ename, eid, did from emp
+
+employee who were latest hires
+select ename, eid, did,hiredate from emp
+analytical query to filter unique records
+select ename, empid, did,hiredate  from emp where (empid,hiredate)
+in (select empid, max(hiredate) from emp group by eid)
+
+
+
