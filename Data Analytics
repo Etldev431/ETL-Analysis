@@ -1,11 +1,59 @@
-Remove duplicates
-select DISTINCT ename, eid, did from emp
+Analytical Functions:;
+select 'Smith'||'Jonny'  as name from dual
+select '100 '||ename from emp
+select * from emp where upper(ename)='SMITH'
+select * from emp where to_char(emp_id) like '100%'
+select sysdate from dual -- '20-SEP-2022'
+select to_char(sysdate,'DD-MM-YYYY HH24:MI:SS') from dual --'20-09-2022 09:44:20'
+Select sysdate-10 from dual
+select * from emp where hire_date>sysdate-10
+select add_month(sysdate,-1) from dual
+select add_month(sysdate,3) from dual -- 20-Dec-2022
+select * from emp where extract(YEAR from hire_date)=2022
+select Round(salary,2) from emp
+select round(1.234567,2) from dual  --1.23
+select floor(1.7378) from dual  --1
+select ceil(1.7) from dual --2
+mathematical functions SIn,COs,tan
+select power(3,2) from dual
+select concat(first_name,last_name) as full_name from emp
+select trim('       Smith       ') from dual
+Ltrim, rtrim
+select ltrim('Mr.Smith','Mr.') from dual   -- Smith
+100, 1023,23678
+0000100,0001023,0023678
+select lpad('100',7,'0') from dual --  0000100
+rpad
+select Replace('smith and jon','and','&') from dual --smith & jon
+select length('smith') from dual -- 5
+select * from emp where length(ename)0>30
+select last_day(sysdate) from dual 
+select last_day(hire_date),count(1)0 from emp
+group by last_day(hire_date)  -- 30-sep-2022, 10
+select * from emp where hire_date>= trunc(add_months(last_day(sysdate),-5),'MM')
+30-sep-2022 -> 30-apr-2022 -> 01-apr-2022
 
-employee who were latest hires
-select ename, eid, did,hiredate from emp
-analytical query to filter unique records
-select ename, empid, did,hiredate  from emp where (empid,hiredate)
-in (select empid, max(hiredate) from emp group by eid)
+to_char -- date into character
+to_date -- select to_date('31-SEP-2022','DD-MON-YYYY') from dual
+31092022
+to_-char(sysdate,'DdMMYYyy')
+select to_date('31/09/22','DD/MM/YY') from dual
+
+
+JOINING  Tables
+select e.*,d.* from emp,dept
+where e.emp_id=d.emp_id and e.hire_date>= '01-JAN-2022'
+
+select * from 
+(select e.*,d.* from emp e left join dept d
+on e.emp_id=d.emp_id   where e.hire_date>= '01-JAN-2022') e, sal s
+where e.emp_id=s.emp_id
+and s.sal>10000
+
+REMOVING DUPS
+remove dupliacte employees
+select * from (select e.*,rank() (partition by emp_id order by hire_date) from emp)
+where rnk=1
 
 
 
