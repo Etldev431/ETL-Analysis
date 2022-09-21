@@ -33,6 +33,7 @@ group by last_day(hire_date)  -- 30-sep-2022, 10
 select * from emp where hire_date>= trunc(add_months(last_day(sysdate),-5),'MM')
 30-sep-2022 -> 30-apr-2022 -> 01-apr-2022
 
+DATE FUNCTIONS
 to_char -- date into character
 to_date -- select to_date('31-SEP-2022','DD-MON-YYYY') from dual
 31092022
@@ -54,6 +55,13 @@ REMOVING DUPS
 remove dupliacte employees
 select * from (select e.*,rank() (partition by emp_id order by hire_date) from emp)
 where rnk=1
+
+Aggregate Function
+min, max,count,avg,sum,first,last
+select deptno,min(salary) from emp group by deptno
+select * from emp where hire_date Between '01-MAY-2022' and '31-MAy-2022'
+salay between 1000 and 10000
+
 
 
 
